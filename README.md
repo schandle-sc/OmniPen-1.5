@@ -1,7 +1,9 @@
 
 
 ```markdown
-> **OmniPen** là giải pháp bảng điện tử miễn phí và toàn diện dành riêng cho giáo viên. Phần mềm hỗ trợ viết, vẽ, chú thích trực tiếp lên bất kỳ màn hình nào, biến máy tính thành bảng đen/trắng đa năng, ghi chú trên file PDF và xuất bản giảng nhanh chóng.
+> **OmniPen** là giải pháp bảng điện tử miễn phí và toàn diện dành riêng cho giáo viên.
+Phần mềm hỗ trợ viết, vẽ, chú thích trực tiếp lên bất kỳ màn hình nào,
+biến máy tính thành bảng đen/trắng đa năng, ghi chú trên file PDF và xuất bản giảng nhanh chóng.
 
 ---
 

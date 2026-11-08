@@ -1,0 +1,29 @@
+<Window x:Class="OmniPen.Views.DonateWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Ủng hộ tác giả OmniPen"
+        Icon="/Assets/OmniPen.ico"
+        SizeToContent="WidthAndHeight" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Topmost="True" ShowInTaskbar="False"
+        Background="#FFFDF2F8" FontFamily="Segoe UI" FontSize="13">
+    <StackPanel Margin="28,22" Width="360">
+        <TextBlock Text="♥ Ủng hộ tác giả" FontSize="22" FontWeight="Bold" Foreground="#FF0F172A" HorizontalAlignment="Center" />
+        <TextBlock x:Name="AuthorText" Foreground="#FF334155" HorizontalAlignment="Center" Margin="0,4,0,0" />
+        <TextBlock TextWrapping="Wrap" TextAlignment="Center" Foreground="#FF475569" Margin="0,10,0,12" LineHeight="19"
+                   Text="OmniPen miễn phí cho thầy cô và học sinh. Mỗi sự ủng hộ giúp tác giả có thêm thời gian phát triển tính năng mới. Xin chân thành cảm ơn!" />
+        <Border Background="White" CornerRadius="16" Padding="10" HorizontalAlignment="Center">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="14" ShadowDepth="2" Opacity="0.18" />
+            </Border.Effect>
+            <Image Source="/Assets/DonateQR.png" Width="280" RenderOptions.BitmapScalingMode="HighQuality" />
+        </Border>
+        <TextBlock TextAlignment="Center" Foreground="#FF64748B" Margin="0,10,0,0" FontSize="12"
+                   Text="Quét mã bằng ứng dụng ngân hàng hoặc ví MoMo (VietQR · Napas 247)" />
+        <TextBlock HorizontalAlignment="Center" Margin="0,10,0,0">
+            <Hyperlink x:Name="SiteLink" Click="Site_Click" Foreground="#FF2563EB">
+                <Run x:Name="SiteRun" Text="www.giaoducso.org" FontWeight="SemiBold" />
+            </Hyperlink>
+        </TextBlock>
+        <Button Content="Đóng" Width="100" Height="32" Margin="0,16,0,0" HorizontalAlignment="Center" IsCancel="True" IsDefault="True" Click="Close_Click" />
+    </StackPanel>
+</Window>

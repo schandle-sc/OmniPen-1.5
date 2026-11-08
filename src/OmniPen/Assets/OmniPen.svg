@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+    <defs>
+        <!-- 1. Bộ lọc đổ bóng cho Bút (3D Shadow) -->
+        <filter id="penShadow" x="-30%" y="-30%" width="160%" height="160%">
+            <feDropShadow dx="8" dy="12" stdDeviation="12" flood-color="#000000" flood-opacity="0.65" />
+        </filter>
+
+        <!-- 2. Bộ lọc phát sáng cho nét mực (Neon Glow) -->
+        <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+            <feGaussianBlur stdDeviation="12" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur" />
+                <feMergeNode in="SourceGraphic" />
+            </feMerge>
+        </filter>
+
+        <!-- 3. Gradient màu mực (Cyan to Purple) -->
+        <linearGradient id="inkGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#00F2FE" />
+            <stop offset="50%" stop-color="#4FACFE" />
+            <stop offset="100%" stop-color="#B066FE" />
+        </linearGradient>
+
+        <!-- 4. Gradient thân bút (Dark Metal) -->
+        <linearGradient id="penBodyGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#2D3748" />
+            <stop offset="50%" stop-color="#4A5568" />
+            <stop offset="100%" stop-color="#1A202C" />
+        </linearGradient>
+
+        <!-- 5. Gradient ngòi bút (Titanium) -->
+        <linearGradient id="penNibGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#F1F5F9" />
+            <stop offset="100%" stop-color="#94A3B8" />
+        </linearGradient>
+
+        <!-- 6. Pattern lưới nền (Mô phỏng bảng điện tử/trang giấy) -->
+        <pattern id="gridPattern" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1E293B" stroke-width="2" />
+        </pattern>
+    </defs>
+
+    <!-- HÌNH NỀN APP ICON (Squircle) -->
+    <!-- Nền Slate đậm -->
+    <rect x="16" y="16" width="480" height="480" rx="112" fill="#0F172A" />
+    <!-- Lưới Grid mô phỏng chế độ Whiteboard -->
+    <rect x="16" y="16" width="480" height="480" rx="112" fill="url(#gridPattern)" />
+    <!-- Viền tinh tế -->
+    <rect x="16" y="16" width="480" height="480" rx="112" fill="none" stroke="#1E293B" stroke-width="6" />
+
+    <!-- LỚP MỰC: BIỂU TƯỢNG VÔ CỰC (OMNI) -->
+    <!-- Lớp Glow phía sau -->
+    <path d="M 256 256 C 292 130, 434 130, 434 256 C 434 382, 292 382, 256 256 C 220 130, 78 130, 78 256 C 78 382, 220 382, 256 256 Z" fill="none" stroke="url(#inkGrad)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" filter="url(#neonGlow)" opacity="0.5" />
+    
+    <!-- Lớp nét mực chính sắc nét -->
+    <path d="M 256 256 C 292 130, 434 130, 434 256 C 434 382, 292 382, 256 256 C 220 130, 78 130, 78 256 C 78 382, 220 382, 256 256 Z" fill="none" stroke="url(#inkGrad)" stroke-width="36" stroke-linecap="round" stroke-linejoin="round" />
+
+    <!-- Điểm sáng rực rỡ ngay tại mũi bút -->
+    <circle cx="256" cy="256" r="16" fill="#FFFFFF" filter="url(#neonGlow)" />
+
+    <!-- LỚP BÚT KỸ THUẬT SỐ (Được xoay 40 độ, chỉa thẳng vào tâm Vô cực) -->
+    <g transform="rotate(40 256 256)" filter="url(#penShadow)">
+        <!-- Đuôi bút (Chứa màu mực) -->
+        <path d="M 230 70 V 56 C 230 46 282 46 282 56 V 70 Z" fill="url(#inkGrad)" />
+        
+        <!-- Thân bút kim loại -->
+        <rect x="230" y="70" width="52" height="114" fill="url(#penBodyGrad)" />
+        
+        <!-- Highlight 3D dọc thân bút -->
+        <rect x="236" y="74" width="8" height="106" rx="4" fill="#FFFFFF" opacity="0.15" />
+        
+        <!-- Vòng nhẫn LED accent (Phát sáng nối giữa thân và ngòi) -->
+        <rect x="230" y="184" width="52" height="6" fill="url(#inkGrad)" />
+        
+        <!-- Ngòi bút (Nib) -->
+        <path d="M 230 190 L 282 190 L 259 253 C 257.5 257 254.5 257 253 253 Z" fill="url(#penNibGrad)" />
+        
+        <!-- Chi tiết ngòi bút (Đường cắt mực và lỗ thở) -->
+        <line x1="256" y1="212" x2="256" y2="248" stroke="#0F172A" stroke-width="3" stroke-linecap="round" />
+        <circle cx="256" cy="206" r="4.5" fill="#0F172A" />
+    </g>
+</svg>

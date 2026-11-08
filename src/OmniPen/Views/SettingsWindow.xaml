@@ -1,0 +1,91 @@
+<Window x:Class="OmniPen.Views.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Cài đặt OmniPen"
+        Icon="/Assets/OmniPen.ico"
+        Width="480" SizeToContent="Height"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        Topmost="True"
+        ShowInTaskbar="False"
+        FontFamily="Segoe UI" FontSize="13">
+    <Window.Resources>
+        <Style x:Key="HotkeyBox" TargetType="TextBox">
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="IsReadOnlyCaretVisible" Value="False" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Margin" Value="0,3" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="6,0" />
+            <Setter Property="ToolTip" Value="Bấm vào ô rồi nhấn tổ hợp phím mới (cần Ctrl / Alt / Shift / Win)" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,3,16,3" />
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Margin="22">
+        <TextBlock Text="Phím tắt toàn cục" FontWeight="SemiBold" FontSize="14" Margin="0,0,0,8" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition /><RowDefinition />
+                <RowDefinition /><RowDefinition /><RowDefinition />
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Bật/tắt chế độ vẽ" />
+            <TextBox   Grid.Row="0" Grid.Column="1" x:Name="HkDraw" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="1" Text="Cầm tẩy" />
+            <TextBox   Grid.Row="1" Grid.Column="1" x:Name="HkEraser" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="2" Text="Xóa tất cả" />
+            <TextBox   Grid.Row="2" Grid.Column="1" x:Name="HkClear" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="3" Text="Bật/tắt bảng" />
+            <TextBox   Grid.Row="3" Grid.Column="1" x:Name="HkBoard" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="4" Text="Hiện/ẩn thanh công cụ" />
+            <TextBox   Grid.Row="4" Grid.Column="1" x:Name="HkToolbar" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="5" Text="Kính lúp động" />
+            <TextBox   Grid.Row="5" Grid.Column="1" x:Name="HkMagnifier" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="6" Text="Dán code từ Clipboard" />
+            <TextBox   Grid.Row="6" Grid.Column="1" x:Name="HkCode" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+            <TextBlock Grid.Row="7" Text="Chụp vùng chọn" />
+            <TextBox   Grid.Row="7" Grid.Column="1" x:Name="HkSnip" Style="{StaticResource HotkeyBox}" PreviewKeyDown="Hotkey_PreviewKeyDown" />
+        </Grid>
+
+        <TextBlock Text="Chung" FontWeight="SemiBold" FontSize="14" Margin="0,18,0,8" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Giấy mặc định cho bảng" />
+            <ComboBox x:Name="PaperCombo" Grid.Column="1" Height="28" DisplayMemberPath="Name" SelectedValuePath="Value" />
+        </Grid>
+        <CheckBox x:Name="StartupCheck" Content="Khởi động cùng Windows (chạy ẩn dưới khay hệ thống)" Margin="0,12,0,0" />
+        <CheckBox x:Name="VerticalCheck" Content="Thanh công cụ dọc" Margin="0,8,0,0" />
+        <CheckBox x:Name="FloatingCheck" Content="Hiện nút tròn ở góc màn hình khi thu nhỏ xuống khay" Margin="0,8,0,0" />
+        <CheckBox x:Name="AutoScrollCheck" Content="Tự cuộn trang bảng khi viết gần cuối màn hình" Margin="0,8,0,0" />
+        <CheckBox x:Name="AutoShapeCheck" Content="Tự nắn hình khi giữ bút 1 giây ở cuối nét" Margin="0,8,0,0" />
+        <CheckBox x:Name="AllKeysCheck" Content="Hiển thị phím: hiện cả phím gõ thường (không chỉ tổ hợp phím)" Margin="0,8,0,0" />
+
+        <TextBlock Text="LaTeX" FontWeight="SemiBold" FontSize="14" Margin="0,18,0,8" />
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="LatexFolderBox" Height="28" VerticalContentAlignment="Center" Padding="4,0"
+                     ToolTip="Để trống để tự tìm MiKTeX / TeX Live. Hoặc nhập thư mục chứa latex.exe và dvipng.exe." />
+            <TextBlock x:Name="LatexStatus" Grid.Column="1" Margin="10,0,0,0" Foreground="#555" />
+        </Grid>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,22,0,0">
+            <Button Content="Mặc định" Width="96" Height="30" Margin="0,0,8,0" Click="Defaults_Click" />
+            <Button Content="Lưu" Width="96" Height="30" Margin="0,0,8,0" IsDefault="True" Click="Save_Click" />
+            <Button Content="Hủy" Width="96" Height="30" IsCancel="True" />
+        </StackPanel>
+    </StackPanel>
+</Window>

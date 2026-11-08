@@ -1,0 +1,40 @@
+<Window x:Class="OmniPen.Views.CanvasWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OmniPen Canvas"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        WindowStartupLocation="Manual"
+        SizeToContent="Manual"
+        Focusable="True">
+
+    <!--
+        Cấu trúc lớp (dưới → trên):
+          RootGrid            khung toàn màn hình, cắt phần tràn
+            DeskBackground    "mặt bàn" tối quanh trang giấy (chỉ khi bật Bảng)
+            Surface           TRANG: kích thước = khổ trang; RenderTransform = zoom + pan
+              PaperBackground nền giấy / ảnh trang PDF
+              InkHost         chứa InkCanvas của trang hiện tại (mỗi trang một InkCanvas)
+              OverlayLayer    thước kẻ (nhận chuột)
+              PreviewLayer    vùng chọn chữ, hình đang kéo, compa (không nhận chuột)
+
+        Nền InkCanvas đổi trong code-behind:
+          - Chế độ Chuột : Transparent (alpha 0)  → pixel trống không nhận input (xuyên chuột).
+          - Chế độ Vẽ    : #01000000 (alpha 1/255) → mắt không thấy nhưng layered window coi là "có pixel".
+    -->
+    <Grid x:Name="RootGrid" ClipToBounds="True">
+        <Border x:Name="DeskBackground" Visibility="Collapsed" Background="#FF2B2D30" />
+
+        <Grid x:Name="Surface" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Border x:Name="PaperBackground" Visibility="Collapsed" Background="White" />
+            <Border x:Name="InkHost" />
+            <Canvas x:Name="OverlayLayer" />
+            <Canvas x:Name="PreviewLayer" IsHitTestVisible="False" />
+        </Grid>
+    </Grid>
+</Window>

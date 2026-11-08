@@ -1,0 +1,19 @@
+<Window x:Class="OmniPen.Views.BlurPatchWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OmniPen Blur"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowInTaskbar="False" ShowActivated="False" ResizeMode="NoResize"
+        WindowStartupLocation="Manual" Focusable="False">
+    <Border CornerRadius="6" ClipToBounds="True" Background="#FF808080">
+        <Grid>
+            <!-- Ảnh vùng phía dưới, thu nhỏ rồi phóng to (khảm) + Gaussian blur: chữ không thể đọc lại được. -->
+            <Image x:Name="BlurImage" Stretch="Fill" RenderOptions.BitmapScalingMode="LowQuality">
+                <Image.Effect>
+                    <BlurEffect Radius="18" KernelType="Gaussian" />
+                </Image.Effect>
+            </Image>
+            <Border BorderBrush="#664FACFE" BorderThickness="1.5" CornerRadius="6" />
+        </Grid>
+    </Border>
+</Window>

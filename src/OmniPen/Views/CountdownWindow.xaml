@@ -1,0 +1,36 @@
+<Window x:Class="OmniPen.Views.CountdownWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Đồng hồ đếm ngược"
+        Icon="/Assets/OmniPen.ico"
+        SizeToContent="WidthAndHeight"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        Topmost="True" ShowInTaskbar="False" ShowActivated="False" ResizeMode="NoResize"
+        WindowStartupLocation="Manual" FontFamily="Segoe UI">
+    <Border x:Name="Card" Background="#F20F172A" CornerRadius="16" Padding="14,10" Margin="10"
+            MouseLeftButtonDown="Card_MouseLeftButtonDown" Cursor="SizeAll">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="16" ShadowDepth="3" Opacity="0.5" />
+        </Border.Effect>
+        <StackPanel>
+            <DockPanel>
+                <Button DockPanel.Dock="Right" Content="✕" Click="Close_Click" Background="Transparent" Foreground="#94A3B8"
+                        BorderThickness="0" FontSize="13" Cursor="Hand" Focusable="False" ToolTip="Đóng" />
+                <TextBlock Text="⏱  Đếm ngược" Foreground="#94A3B8" FontSize="12" VerticalAlignment="Center" />
+            </DockPanel>
+            <Grid Margin="0,2,0,4">
+                <!-- Vòng tiến độ -->
+                <Ellipse Width="150" Height="150" Stroke="#1E293B" StrokeThickness="10" />
+                <Path x:Name="ProgressArc" Width="150" Height="150" Stroke="#FF4FACFE" StrokeThickness="10"
+                      StrokeStartLineCap="Round" StrokeEndLineCap="Round" />
+                <TextBlock x:Name="TimeText" Text="15:00" Foreground="White" FontSize="40" FontWeight="SemiBold"
+                           FontFamily="Segoe UI Semibold" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            </Grid>
+            <WrapPanel x:Name="PresetPanel" HorizontalAlignment="Center" Width="180" />
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,6,0,0">
+                <Button x:Name="BtnStart" Content="▶  Bắt đầu" Click="Start_Click" Padding="12,5" Margin="0,0,6,0" Focusable="False" Cursor="Hand" />
+                <Button Content="↺" Click="Reset_Click" Padding="10,5" Focusable="False" Cursor="Hand" ToolTip="Đặt lại" />
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

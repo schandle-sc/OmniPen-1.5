@@ -1,0 +1,48 @@
+# Build OmniPen trên máy ảo Windows của GitHub – không cần cài gì trên máy cá nhân.
+# Cách dùng: đẩy mã nguồn lên một repo GitHub → tab Actions → "Build OmniPen" → Run workflow.
+# Tải file cài đặt ở mục Artifacts của lần chạy. Đẩy tag v1.3 sẽ tự tạo Release kèm file cài.
+name: Build OmniPen
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Cài Inno Setup (nếu máy ảo chưa có)
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe")) {
+            choco install innosetup -y --no-progress
+          }
+
+      - name: Build exe + bộ cài
+        shell: pwsh
+        run: ./build.ps1
+
+      - name: Kiểm tra thư viện có lỗ hổng bảo mật
+        shell: pwsh
+        run: dotnet list src/OmniPen package --vulnerable --include-transitive
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OmniPen-1.5
+          path: dist/*.exe
+
+      - name: Tạo GitHub Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/*.exe

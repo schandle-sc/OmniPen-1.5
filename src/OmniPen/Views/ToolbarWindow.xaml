@@ -1,0 +1,302 @@
+<Window x:Class="OmniPen.Views.ToolbarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="OmniPen"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        Topmost="True"
+        ShowInTaskbar="False"
+        ShowActivated="False"
+        ResizeMode="NoResize"
+        SizeToContent="WidthAndHeight"
+        WindowStartupLocation="Manual"
+        UseLayoutRounding="True"
+        TextOptions.TextFormattingMode="Display">
+
+    <Window.Resources>
+        <FontFamily x:Key="IconFont">Segoe Fluent Icons, Segoe MDL2 Assets</FontFamily>
+        <FontFamily x:Key="SymbolFont">Segoe UI Symbol</FontFamily>
+
+        <!-- Nút công cụ: Background (TemplateBinding) để tô nút đang chọn; lớp Hover phủ lên khi rê chuột. -->
+        <Style x:Key="ToolButton" TargetType="Button">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="Margin" Value="2" />
+            <Setter Property="Foreground" Value="#EEEEEE" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="FontSize" Value="17" />
+            <Setter Property="FontFamily" Value="{StaticResource IconFont}" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="ToolTipService.InitialShowDelay" Value="400" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="{TemplateBinding Background}" CornerRadius="8" />
+                            <Border x:Name="Hover" Background="#26FFFFFF" CornerRadius="8" Visibility="Collapsed" />
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="{TemplateBinding Padding}" />
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Hover" Property="Visibility" Value="Visible" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.35" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SymbolButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+            <Setter Property="FontFamily" Value="{StaticResource SymbolFont}" />
+            <Setter Property="FontSize" Value="18" />
+        </Style>
+
+        <Style x:Key="SmallButton" TargetType="Button" BasedOn="{StaticResource ToolButton}">
+            <Setter Property="Width" Value="34" />
+            <Setter Property="Height" Value="34" />
+            <Setter Property="FontSize" Value="14" />
+        </Style>
+
+        <Style x:Key="TextButton" TargetType="Button" BasedOn="{StaticResource SmallButton}">
+            <Setter Property="Width" Value="Auto" />
+            <Setter Property="MinWidth" Value="34" />
+            <Setter Property="Padding" Value="8,0" />
+            <Setter Property="FontFamily" Value="Segoe UI" />
+            <Setter Property="FontSize" Value="13" />
+        </Style>
+
+        <Style x:Key="ColorSwatch" TargetType="Button">
+            <Setter Property="Width" Value="22" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Margin" Value="3" />
+            <Setter Property="Focusable" Value="False" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Ellipse x:Name="El" Fill="{TemplateBinding Background}" Stroke="#66FFFFFF" StrokeThickness="1.5" />
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="El" Property="Stroke" Value="White" />
+                                <Setter TargetName="El" Property="StrokeThickness" Value="2.5" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Vạch ngăn: kích thước đổi theo hướng thanh công cụ trong code-behind (Tag="sep"). -->
+        <Style x:Key="Sep" TargetType="Rectangle">
+            <Setter Property="Width" Value="1" />
+            <Setter Property="Height" Value="28" />
+            <Setter Property="Margin" Value="6,0" />
+            <Setter Property="Fill" Value="#40FFFFFF" />
+            <Setter Property="Tag" Value="sep" />
+        </Style>
+    </Window.Resources>
+
+    <!--
+        Border nền ĐẶC → toàn bộ toolbar nhận chuột. Vùng ngoài Border (Transparent) tự xuyên chuột.
+        WrapPanel: tự xuống dòng (hoặc sang cột khi để dọc) nếu màn hình hẹp – không bao giờ tràn khỏi màn hình.
+    -->
+    <StackPanel x:Name="OuterPanel" Margin="10">
+        <Border x:Name="MainBorder" Background="#EE202124" CornerRadius="12" Padding="4">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Opacity="0.45" />
+            </Border.Effect>
+
+            <WrapPanel x:Name="MainPanel" Orientation="Horizontal">
+                <!-- Tay nắm kéo -->
+                <Border x:Name="DragHandle" Width="16" Height="40" Background="#01000000" Cursor="SizeAll"
+                        MouseLeftButtonDown="DragHandle_MouseLeftButtonDown" ToolTip="Kéo để di chuyển thanh công cụ">
+                    <TextBlock Text="&#xE76F;" FontFamily="{StaticResource IconFont}" Foreground="#888"
+                               VerticalAlignment="Center" HorizontalAlignment="Center" RenderTransformOrigin="0.5,0.5">
+                        <TextBlock.RenderTransform><RotateTransform x:Name="GripRotate" Angle="90" /></TextBlock.RenderTransform>
+                    </TextBlock>
+                </Border>
+
+                <!-- Chế độ & công cụ -->
+                <Button x:Name="BtnMouse" Style="{StaticResource ToolButton}" Content="&#xE7C9;" Click="BtnMouse_Click"
+                        ToolTip="Chuột – thao tác với ứng dụng phía sau (Esc)" />
+                <Button x:Name="BtnSelect" Style="{StaticResource SymbolButton}" Content="&#x2B1A;" Click="BtnSelect_Click"
+                        ToolTip="Chọn – di chuyển, đổi cỡ nét vẽ và ảnh (S). Nhấn Delete để xóa phần đã chọn." />
+                <Button x:Name="BtnPen" Style="{StaticResource ToolButton}" Content="&#xE76D;" Click="BtnPen_Click" ToolTip="Bút (P)" />
+                <Button x:Name="BtnHighlighter" Style="{StaticResource ToolButton}" Content="&#xE7E6;" Click="BtnHighlighter_Click"
+                        ToolTip="Bút dạ quang (H)" />
+                <Button x:Name="BtnLaser" Style="{StaticResource SymbolButton}" Content="&#x2726;" Foreground="#FFFF5A7A" Click="BtnLaser_Click"
+                        ToolTip="Bút laser – nét phát sáng tự mờ và biến mất sau 3 giây (L)" />
+                <Button x:Name="BtnTape" Style="{StaticResource SymbolButton}" Content="&#x25AC;" Click="BtnTape_Click"
+                        ToolTip="Băng che chữ – quẹt lên từ cần che; bấm nhẹ vào băng để mở đáp án" />
+                <Button x:Name="BtnEraser" Style="{StaticResource ToolButton}" Content="&#xE75C;" Click="BtnEraser_Click"
+                        ToolTip="Tẩy một phần – bấm lần nữa để tẩy cả nét (E)" />
+                <Button x:Name="BtnShape" Style="{StaticResource SymbolButton}" Content="&#x2571;" Click="BtnShape_Click"
+                        ToolTip="Hình: đường thẳng, mũi tên, hình chữ nhật, tròn, tam giác, hình hộp, bảng… (giữ Shift để vẽ chuẩn)">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="ShapeMenu" />
+                    </Button.ContextMenu>
+                </Button>
+                <Button x:Name="BtnRuler" Style="{StaticResource SymbolButton}" Content="&#x1F4CF;" Click="BtnRuler_Click"
+                        ToolTip="Thước kẻ (R) – kéo để di chuyển, kéo núm xanh để xoay; vẽ sát mép thước sẽ được nắn thẳng" />
+                <Button x:Name="BtnCompass" Style="{StaticResource SymbolButton}" Content="&#x2299;" Click="BtnCompass_Click"
+                        ToolTip="Compa: kéo từ tâm ra để đặt bán kính, sau đó kéo vòng quanh để vẽ cung/đường tròn. Chuột phải hoặc Esc: đặt tâm mới" />
+                <Button x:Name="BtnTextSelect" Style="{StaticResource TextButton}" Content="Aa" FontWeight="SemiBold" Click="BtnTextSelect_Click"
+                        ToolTip="Chọn chữ trên trang PDF để sao chép, tô sáng, gạch chân, gạch ngang" />
+                <Button x:Name="BtnBlur" Style="{StaticResource SymbolButton}" Content="&#x25CD;" Click="BtnBlur_Click"
+                        ToolTip="Làm mờ bảo mật – kéo khung để làm mờ một vùng màn hình (mật khẩu, API key…); bấm vào vùng mờ để gỡ" />
+                <Button x:Name="BtnPlot" Style="{StaticResource TextButton}" Content="Oxy" FontWeight="SemiBold" Click="BtnPlot_Click"
+                        ToolTip="Hệ trục Oxy &amp; vẽ đồ thị hàm số (gõ y = sin(x), y = x^2 - 4x + 3…)" />
+
+                <Rectangle Style="{StaticResource Sep}" />
+
+                <!-- Màu -->
+                <UniformGrid x:Name="ColorGrid" Columns="4" VerticalAlignment="Center">
+                    <Button Style="{StaticResource ColorSwatch}" Background="#FFE53935" Click="Color_Click" ToolTip="Đỏ" />
+                    <Button Style="{StaticResource ColorSwatch}" Background="#FF1E88E5" Click="Color_Click" ToolTip="Xanh dương" />
+                    <Button Style="{StaticResource ColorSwatch}" Background="#FF000000" Click="Color_Click" ToolTip="Đen" />
+                    <Button Style="{StaticResource ColorSwatch}" Background="#FFFFFFFF" Click="Color_Click" ToolTip="Trắng" />
+                </UniformGrid>
+                <Button x:Name="BtnPalette" Style="{StaticResource ToolButton}" Click="BtnPalette_Click" ToolTip="Chọn màu khác…">
+                    <Grid>
+                        <Ellipse x:Name="CurrentColorDot" Width="22" Height="22" Fill="Red" Stroke="White" StrokeThickness="2" />
+                        <TextBlock Text="&#xE790;" FontFamily="{StaticResource IconFont}" FontSize="11" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Grid>
+                </Button>
+
+                <!-- Độ dày: thanh trượt -->
+                <StackPanel x:Name="SizePanel" Orientation="Horizontal" VerticalAlignment="Center" Margin="4,0"
+                            ToolTip="Độ dày nét (kéo thanh trượt hoặc lăn chuột)">
+                    <Ellipse x:Name="SizePreview" Width="6" Height="6" Fill="#EEE" Margin="2,0,6,0" VerticalAlignment="Center" />
+                    <Slider x:Name="SizeSlider" Width="96" Minimum="1" Maximum="40" Value="4" SmallChange="1" LargeChange="4"
+                            IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center" Focusable="False"
+                            ValueChanged="SizeSlider_ValueChanged" PreviewMouseWheel="SizeSlider_PreviewMouseWheel" />
+                    <TextBlock x:Name="SizeText" Text="4" Foreground="#EEE" FontSize="12" MinWidth="20" TextAlignment="Center"
+                               VerticalAlignment="Center" Margin="4,0,0,0" />
+                </StackPanel>
+
+                <Rectangle Style="{StaticResource Sep}" />
+
+                <!-- Lịch sử -->
+                <Button x:Name="BtnUndo" Style="{StaticResource ToolButton}" Content="&#xE7A7;" Click="BtnUndo_Click" ToolTip="Hoàn tác (Ctrl+Z)" />
+                <Button x:Name="BtnRedo" Style="{StaticResource ToolButton}" Content="&#xE7A6;" Click="BtnRedo_Click" ToolTip="Làm lại (Ctrl+Y)" />
+                <Button x:Name="BtnClear" Style="{StaticResource ToolButton}" Content="&#xE74D;" Click="BtnClear_Click" ToolTip="Xóa tất cả nét trên trang (có thể hoàn tác)" />
+
+                <Rectangle Style="{StaticResource Sep}" />
+
+                <Button x:Name="BtnBoard" Style="{StaticResource ToolButton}" Content="&#xE7C3;" Click="BtnBoard_Click" ToolTip="Bật/tắt chế độ Bảng" />
+                <Button x:Name="BtnInsert" Style="{StaticResource ToolButton}" Content="&#xE710;" Click="BtnInsert_Click" ToolTip="Chèn ảnh, chụp camera, công thức LaTeX">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="InsertMenu">
+                            <MenuItem Header="Ảnh từ máy tính…" Click="MenuInsertImage_Click" />
+                            <MenuItem Header="Chụp ảnh từ camera…" Click="MenuInsertCamera_Click" />
+                            <MenuItem Header="Ảnh từ Clipboard" Click="MenuInsertClipboard_Click" />
+                            <MenuItem Header="Đoạn code từ Clipboard" Click="MenuPasteCode_Click" />
+                            <MenuItem Header="Hệ trục Oxy &amp; đồ thị…" Click="BtnPlot_Click" />
+                            <Separator />
+                            <MenuItem Header="Công thức toán LaTeX…" Click="MenuInsertLatex_Click" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button x:Name="BtnCapture" Style="{StaticResource ToolButton}" Content="&#xE722;" Click="BtnCapture_Click" ToolTip="Chụp màn hình (toàn màn hình / vùng chọn)">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="CaptureMenu">
+                            <MenuItem Header="Chụp toàn màn hình" Click="MenuCaptureFull_Click" />
+                            <MenuItem Header="Chụp vùng chọn…" Click="MenuCaptureRegion_Click" />
+                            <Separator />
+                            <MenuItem Header="Mở thư mục ảnh chụp" Click="MenuOpenCaptures_Click" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button x:Name="BtnPresent" Style="{StaticResource SymbolButton}" Content="&#x2728;" Click="BtnPresent_Click" ToolTip="Trợ giảng &amp; trình chiếu">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="PresentMenu">
+                            <MenuItem x:Name="MenuKeys" Header="Hiển thị phím tắt &amp; click chuột" IsCheckable="True" Click="MenuKeys_Click" />
+                            <MenuItem x:Name="MenuMagnifier" Header="Kính lúp động (bấm lại: 3×, lần nữa: tắt)" IsCheckable="True" Click="MenuMagnifier_Click" />
+                            <MenuItem x:Name="MenuFocus" Header="Khung focus – làm tối mọi thứ trừ cửa sổ đang trỏ" IsCheckable="True" Click="MenuFocus_Click" />
+                            <MenuItem Header="Gỡ tất cả vùng làm mờ" Click="MenuClearBlur_Click" />
+                            <Separator />
+                            <MenuItem Header="Mở hết băng che chữ trên trang" Click="MenuRevealTapes_Click" />
+                            <MenuItem Header="Chữ viết tay → văn bản…" Click="MenuHandwriting_Click" />
+                            <MenuItem Header="Dán code từ Clipboard (tô màu cú pháp)" Click="MenuPasteCode_Click" />
+                            <MenuItem x:Name="MenuAutoShape" Header="Tự nắn hình khi giữ bút 1 giây" IsCheckable="True" Click="MenuAutoShape_Click" />
+                            <Separator />
+                            <MenuItem Header="⏱  Đồng hồ đếm ngược" Click="MenuCountdown_Click" />
+                            <MenuItem Header="🎯  Vòng quay gọi tên" Click="MenuNamePicker_Click" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button x:Name="BtnMore" Style="{StaticResource ToolButton}" Content="&#xE712;" Click="BtnMore_Click" ToolTip="Thêm…">
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="MoreMenu">
+                            <MenuItem Header="Mở tài liệu OmniPen…" Click="MenuOpen_Click" />
+                            <MenuItem Header="Mở PDF để ghi chú…" Click="MenuOpenPdf_Click" />
+                            <MenuItem Header="Lưu tài liệu…" Click="MenuSave_Click" />
+                            <Separator />
+                            <MenuItem Header="Xuất">
+                                <MenuItem Header="PDF (tất cả trang)…" Click="MenuExportPdf_Click" />
+                                <MenuItem Header="PNG (trang hiện tại)…" Click="MenuExportPng_Click" />
+                                <MenuItem Header="PNG nền trong suốt…" Click="MenuExportPngTransparent_Click" />
+                                <MenuItem Header="SVG (vector)…" Click="MenuExportSvg_Click" />
+                            </MenuItem>
+                            <MenuItem Header="Chụp màn hình" Click="MenuScreenshot_Click" />
+                            <MenuItem Header="Mở thư mục ảnh chụp" Click="MenuOpenCaptures_Click" />
+                            <Separator />
+                            <MenuItem x:Name="MenuOrientation" Header="Thanh công cụ dọc" IsCheckable="True" Click="MenuOrientation_Click" />
+                            <MenuItem Header="Cài đặt…" Click="MenuSettings_Click" />
+                            <MenuItem Header="Giới thiệu OmniPen" Click="MenuAbout_Click" />
+                            <MenuItem Header="♥ Ủng hộ tác giả (giaoducso.org)" Click="MenuDonate_Click" />
+                            <Separator />
+                            <MenuItem Header="Thoát" Click="MenuExit_Click" />
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
+                <Button x:Name="BtnHide" Style="{StaticResource ToolButton}" Content="&#xE921;" Click="BtnHide_Click"
+                        ToolTip="Thu nhỏ xuống khay hệ thống – bấm nút tròn ở góc màn hình để mở lại" />
+            </WrapPanel>
+        </Border>
+
+        <!-- Thanh trang – chỉ hiện khi bật Bảng -->
+        <Border x:Name="PageBar" Visibility="Collapsed" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,6,0,0"
+                Background="#EE202124" CornerRadius="10" Padding="4">
+            <Border.Effect>
+                <DropShadowEffect BlurRadius="10" ShadowDepth="2" Opacity="0.4" />
+            </Border.Effect>
+            <WrapPanel x:Name="PagePanel" Orientation="Horizontal">
+                <Button x:Name="BtnPrevPage" Style="{StaticResource SmallButton}" Content="&#xE72B;" Click="BtnPrevPage_Click" ToolTip="Trang trước (PageUp)" />
+                <TextBlock x:Name="PageText" Text="1 / 1" Foreground="#EEE" FontSize="14" MinWidth="56"
+                           TextAlignment="Center" VerticalAlignment="Center" />
+                <Button x:Name="BtnNextPage" Style="{StaticResource SmallButton}" Content="&#xE72A;" Click="BtnNextPage_Click"
+                        ToolTip="Trang sau (PageDown) – ở trang cuối sẽ tạo trang mới" />
+                <Button x:Name="BtnAddPage" Style="{StaticResource SmallButton}" Content="&#xE710;" Click="BtnAddPage_Click" ToolTip="Chèn trang trắng sau trang này" />
+                <Button x:Name="BtnDeletePage" Style="{StaticResource SmallButton}" Content="&#xE738;" Click="BtnDeletePage_Click" ToolTip="Xóa trang này" />
+
+                <Rectangle Style="{StaticResource Sep}" />
+
+                <Button x:Name="BtnZoomOut" Style="{StaticResource SmallButton}" Content="&#xE71F;" Click="BtnZoomOut_Click" ToolTip="Thu nhỏ (Ctrl + lăn chuột, Ctrl+−)" />
+                <Button x:Name="BtnZoomText" Style="{StaticResource TextButton}" Content="100%" Click="BtnZoomReset_Click" ToolTip="Về 100% (Ctrl+0)" />
+                <Button x:Name="BtnZoomIn" Style="{StaticResource SmallButton}" Content="&#xE8A3;" Click="BtnZoomIn_Click" ToolTip="Phóng to (Ctrl + lăn chuột, Ctrl++)" />
+                <Button x:Name="BtnFitWidth" Style="{StaticResource TextButton}" Content="&#x2194;" FontFamily="{StaticResource SymbolFont}" Click="BtnFitWidth_Click" ToolTip="Vừa chiều rộng màn hình" />
+                <Button x:Name="BtnFitPage" Style="{StaticResource TextButton}" Content="&#x2922;" FontFamily="{StaticResource SymbolFont}" Click="BtnFitPage_Click" ToolTip="Xem cả trang" />
+                <Button x:Name="BtnPan" Style="{StaticResource TextButton}" Content="&#x270B;" FontFamily="{StaticResource SymbolFont}" Click="BtnPan_Click"
+                        ToolTip="Bàn tay – kéo để di chuyển trang (hoặc giữ nút giữa chuột / lăn chuột)" />
+                <Button x:Name="BtnAutoScroll" Style="{StaticResource TextButton}" Content="Tự cuộn" Click="BtnAutoScroll_Click"
+                        ToolTip="Tự cuộn trang lên khi viết gần cuối màn hình – viết liên tục không bị ngắt quãng" />
+
+                <Rectangle Style="{StaticResource Sep}" />
+
+                <Button x:Name="BtnPaper" Style="{StaticResource TextButton}" Click="BtnPaper_Click" ToolTip="Đổi kiểu nền cho trang này">
+                    <TextBlock x:Name="PaperText" Text="Giấy ô ly ▾" />
+                    <Button.ContextMenu>
+                        <ContextMenu x:Name="PaperMenu" />
+                    </Button.ContextMenu>
+                </Button>
+            </WrapPanel>
+        </Border>
+    </StackPanel>
+</Window>

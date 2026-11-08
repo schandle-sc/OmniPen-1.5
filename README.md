@@ -1,13 +1,6 @@
 
 
 ```markdown
-# 🖊️ OmniPen 1.5 – Viết Bảng Điện Tử & Chú Thích Màn Hình
-
-[![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg?logo=windows)](https://www.microsoft.com/windows)
-[![Framework](https://img.shields.io/badge/.NET-8.0-purple.svg?logo=dotnet)](https://dotnet.microsoft.com/)
-[![License](https://img.shields.io/badge/License-Free-brightgreen.svg)]()
-[![Donate](https://img.shields.io/badge/Ủng_hộ-Giaoducso.org-ff69b4.svg)](http://www.giaoducso.org)
-
 > **OmniPen** là giải pháp bảng điện tử miễn phí và toàn diện dành riêng cho giáo viên. Phần mềm hỗ trợ viết, vẽ, chú thích trực tiếp lên bất kỳ màn hình nào, biến máy tính thành bảng đen/trắng đa năng, ghi chú trên file PDF và xuất bản giảng nhanh chóng.
 
 ---

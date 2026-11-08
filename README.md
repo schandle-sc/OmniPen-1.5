@@ -1,45 +1,25 @@
+# 🖊️ OmniPen 1.5 – Viết Bảng Điện Tử & Chú Thích Màn Hình
 
+![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-blue.svg?logo=windows)
+![Framework](https://img.shields.io/badge/.NET-8.0-purple.svg?logo=dotnet)
+![License](https://img.shields.io/badge/License-Free-brightgreen.svg)
+![Donate](https://img.shields.io/badge/%CE%A5ng__h%E1%BB%99-Giaoducso.org-ff69b4.svg)
 
-```markdown
-> **OmniPen** là giải pháp bảng điện tử miễn phí và toàn diện dành riêng cho giáo viên.
-Phần mềm hỗ trợ viết, vẽ, chú thích trực tiếp lên bất kỳ màn hình nào,
-biến máy tính thành bảng đen/trắng đa năng, ghi chú trên file PDF và xuất bản giảng nhanh chóng.
-
----
-
-## 👨‍🏫 Thông Tin Tác Giả & Yêu Cầu Hệ Thống
-
-* **Tác giả:** Hồ Văn Thuyên (*Trường THPT Hoàng Hoa Thám*)
-* **Website ủng hộ:** [www.giaoducso.org](http://www.giaoducso.org)
-* **Yêu cầu hệ thống:**
-  * 💻 **Hệ điều hành:** Windows 10 (Phiên bản 1809 trở lên) hoặc Windows 11 (32-bit / 64-bit).
-  * ⚙️ **Phụ thuộc:** Chạy độc lập, **không cần** cài sẵn .NET Framework trên máy người dùng.
+> 💡 **OmniPen** là phần mềm viết bảng điện tử miễn phí dành cho giáo viên: viết, vẽ, chú thích trực tiếp lên màn hình; biến máy tính thành bảng đen – bảng trắng nhiều trang; ghi chú lên PDF; chèn hình, ảnh, công thức toán và xuất bài giảng ra PDF/PNG/SVG.
 
 ---
 
-## 🗺️ Kiến Trúc & Tính Năng Tổng Quan
+## 👨‍🏫 1. THÔNG TIN TÁC GIẢ & CÀI ĐẶT
 
-```mermaid
-graph TD
-    OmniPen[🖊️ OmniPen 1.5] --> CoreFeatures[🛠️ Tính Năng Cốt Lõi]
-    OmniPen --> AssistantFeatures[✨ Trợ Giảng & Trình Chiếu]
-    OmniPen --> BoardModes[📋 Chế Độ Bảng & PDF]
-    OmniPen --> ExportFormat[📤 Xuất Dữ Liệu]
+### 👤 Tác giả & Quyên góp
+* **Tác giả:** Hồ Văn Thuyên – Trường THPT Hoàng Hoa Thám
+* **Ủng hộ tác giả:** [www.giaoducso.org](http://www.giaoducso.org)
+* **Yêu cầu hệ thống:** Windows 10 (1809 trở lên) / Windows 11, 64-bit hoặc 32-bit. *Không cần cài .NET.*
 
-    CoreFeatures --> P1[Bút vẽ cảm ứng & Dạ quang]
-    CoreFeatures --> P2[Hình học chuẩn & Thước/Compa]
-    CoreFeatures --> P3[Công thức LaTeX & Ảnh/Camera]
-
-    AssistantFeatures --> A1[Bút Laser & Băng che chữ]
-    AssistantFeatures --> A2[Làm mờ vùng nhạy cảm & Đồ thị Oxy]
-    AssistantFeatures --> A3[Kính lúp, Focus & Vòng quay ngẫu nhiên]
-
-    BoardModes --> B1[Bảng trắng / Đen / Ô ly cuộn vô hạn]
-    BoardModes --> B2[Ghi chú trực tiếp trên PDF]
-
-    ExportFormat --> E1[PDF / PNG / PNG Trong suốt / SVG Vector]
-
-```
+### 📦 Hướng dẫn cài đặt
+* ⚙️ **Bản cài đặt (`OmniPen_Setup_v1.5.exe`):** Chạy file $\rightarrow$ Chọn *Tiếp* $\rightarrow$ *Cài đặt*. Tự động liên kết mở file `.omnipen`. Không cần quyền Admin.
+* 🚀 **Bản di động (`OmniPen_v1.5_x64_portable.exe`):** Không muốn cài đặt thì bấm đúp file này để chạy ngay.
+* 🛡️ **Cảnh báo Windows SmartScreen:** File chưa ký số có thể bị cảnh báo $\rightarrow$ Bấm **"More info"** $\rightarrow$ Chọn **"Run anyway"**.
 
 ---
 

@@ -1,6 +1,4 @@
-Dưới đây là file `README.md` đã được thiết kế lại hoàn toàn theo phong cách **hiện đại, trực quan và chuyên nghiệp**. File được bổ sung hệ thống **biểu tượng (badges)**, **bảng tóm tắt**, **sơ đồ tư duy (Mermaid Graph)**, **sơ đồ luồng (Flowchart)** và **khối ghi chú callout** nâng cao trải nghiệm người dùng trên GitHub.
 
-Bạn chỉ cần sao chép toàn bộ nội dung trong khung bên dưới và thay thế vào file `README.md` của mình:
 
 ```markdown
 # 🖊️ OmniPen 1.5 – Viết Bảng Điện Tử & Chú Thích Màn Hình

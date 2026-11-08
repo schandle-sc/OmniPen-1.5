@@ -16,11 +16,6 @@
 * **Ủng hộ tác giả:** [www.giaoducso.org](http://www.giaoducso.org)
 * **Yêu cầu hệ thống:** Windows 10 (1809 trở lên) / Windows 11, 64-bit hoặc 32-bit. *Không cần cài .NET.*
 
-### 📦 Hướng dẫn cài đặt
-* ⚙️ **Bản cài đặt (`OmniPen_Setup_v1.5.exe`):** Chạy file $\rightarrow$ Chọn *Tiếp* $\rightarrow$ *Cài đặt*. Tự động liên kết mở file `.omnipen`. Không cần quyền Admin.
-* 🚀 **Bản di động (`OmniPen_v1.5_x64_portable.exe`):** Không muốn cài đặt thì bấm đúp file này để chạy ngay.
-* 🛡️ **Cảnh báo Windows SmartScreen:** File chưa ký số có thể bị cảnh báo $\rightarrow$ Bấm **"More info"** $\rightarrow$ Chọn **"Run anyway"**.
-
 ---
 
 ## 🚀 Hướng Dẫn Cài Đặt
@@ -166,7 +161,7 @@ Bấm đúp vào file `build.bat`. Kịch bản tự động kiểm tra và cài
 
 ## 💖 Ủng Hộ Tác Giả
 
-Nếu bạn thấy **OmniPen** hữu ích cho việc giảng dạy, hãy ủng hộ tác giả phát triển dự án bằng cách quét mã QR (VietQR / MoMo) tại mục **`⋯` $\to$ `Ủng hộ tác giả**` trong ứng dụng hoặc truy cập website:
+Nếu bạn thấy **OmniPen** hữu ích cho việc giảng dạy, hãy ủng hộ tác giả phát triển dự án bằng cách quét mã QR (VietQR / MoMo) 09.6618.7618 `Ủng hộ tác giả**` trong ứng dụng hoặc truy cập website:
 
 👉 **[www.giaoducso.org](http://www.giaoducso.org)**
 

@@ -139,31 +139,18 @@ flowchart LR
 
 ---
 
-## 🛠️ Hướng Dẫn Build Mã Nguồn (Developer)
+### Cài đặt
 
-### Thư Mục Dự Án & Cấu Trúc
+Bản cài đặt hoặc chạy không cần cài đặt:
 
-```text
-OmniPen/
-├── src/OmniPen/             # Mã nguồn C# WPF (.NET 8 Windows SDK)
-├── Directory.Packages.props # Quản lý thư viện NuGet tập trung (CPM)
-├── installer/                # Kịch bản Inno Setup & ngôn ngữ Tiếng Việt
-└── build.bat                 # Script đóng gói tự động
-
-```
-
-### Cách Build Nhanh
-
-Bấm đúp vào file `build.bat`. Kịch bản tự động kiểm tra và cài đặt **.NET 8 SDK** & **Inno Setup 6** (qua `winget` nếu thiếu), sau đó xuất bản đóng gói tại thư mục `dist/`:
-
-* `dist/OmniPen_Setup_v1.5.exe`
-* `dist/OmniPen_v1.5_x64_portable.exe`
+* `OmniPen_Setup_v1.5.exe`
+* `OmniPen_v1.5_x64_portable.exe`
 
 ---
 
 ## 💖 Ủng Hộ Tác Giả
 
-Nếu bạn thấy **OmniPen** hữu ích cho việc giảng dạy, hãy ủng hộ tác giả phát triển dự án bằng cách quét mã QR (VietQR / MoMo) 09.6618.7618 `Ủng hộ tác giả**` trong ứng dụng hoặc truy cập website:
+Nếu bạn thấy **OmniPen** hữu ích cho việc giảng dạy, hãy ủng hộ tác giả phát triển dự án bằng cách quét mã QR (VietQR / MoMo) 09.6618.7618 **Ủng hộ tác giả** trong ứng dụng hoặc truy cập website:
 
 👉 **[www.giaoducso.org](http://www.giaoducso.org)**
 

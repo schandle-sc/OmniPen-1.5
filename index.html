@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OmniPen - Trợ Giảng Kỹ Thuật Số Đột Phá</title>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0F172A; /* Nền slate đậm giống thiết kế icon */
+            --surface-color: #1E293B;
+            --text-main: #F8FAFC;
+            --text-muted: #94A3B8;
+            --primary-cyan: #00F2FE;
+            --primary-purple: #B066FE;
+            --accent: #4FACFE;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* Hỗ trợ hiển thị gradient text */
+        .gradient-text {
+            background: linear-gradient(to right, var(--primary-cyan), var(--primary-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 5%;
+            background: rgba(15, 23, 42, 0.9);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--surface-color);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 30px;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-cyan);
+        }
+
+        .btn-download {
+            background: linear-gradient(to right, var(--primary-cyan), var(--accent));
+            color: #000;
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-download:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.4);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 150px 5% 100px;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            max-width: 800px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+        }
+
+        .hero-image {
+            width: 80%;
+            max-width: 1000px;
+            margin-top: 50px;
+            border-radius: 20px;
+            border: 2px solid #334155;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            overflow: hidden;
+            background: var(--surface-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Nhúng hình ảnh demo dưới dạng Base64 */
+        .hero-image img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* --- FEATURES GRID --- */
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 80px 0 40px;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 0 5%;
+            max-width: 1200px;
+            margin: 0 auto 100px;
+        }
+
+        .feature-card {
+            background: var(--surface-color);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-cyan);
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: var(--primary-purple);
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* --- SUBJECTS SHOWCASE --- */
+        .subjects {
+            background: #0B1120;
+            padding: 80px 5%;
+        }
+
+        .subject-row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            max-width: 1200px;
+            margin: 0 auto 60px;
+        }
+
+        .subject-row:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .subject-text {
+            flex: 1;
+        }
+
+        .subject-text h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--primary-cyan);
+        }
+
+        .subject-text ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .subject-text li {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .subject-text li i {
+            color: #10B981; /* Green check */
+        }
+
+        .subject-img {
+            flex: 1;
+            height: 300px;
+            background: var(--surface-color);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            border: 1px dashed var(--primary-purple);
+            font-weight: 600;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            border-top: 1px solid var(--surface-color);
+            color: var(--text-muted);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .subject-row { flex-direction: column !important; }
+            .hero-image { height: auto; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-pen-nib" style="color: var(--primary-cyan);"></i>
+            OmniPen
+        </div>
+        <nav class="nav-links">
+            <a href="#features">Tính năng</a>
+            <a href="#subjects">Dành cho Giáo dục</a>
+            <a href="#pricing">Bảng giá</a>
+        </nav>
+        <a href="#" class="btn-download"><i class="fa-brands fa-windows"></i> Tải về Windows</a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Viết lên mọi màn hình. <br> <span class="gradient-text">Giảng dạy không giới hạn.</span></h1>
+        <p>OmniPen là phần mềm chú thích màn hình và bảng trắng kỹ thuật số tốt nhất dành cho giáo viên, người thuyết trình và lập trình viên. Nhẹ, mượt mà và thông minh.</p>
+        <div>
+            <!-- Cập nhật tên phiên bản -->
+            <a href="#" class="btn-download" style="font-size: 1.1rem; padding: 15px 35px;">Tải Miễn Phí (v1.5)</a>
+        </div>
+        
+        <div class="hero-image">
+            <!-- Nhúng hình ảnh demo (Base64 của image_1.png) -->
+            <img src="anh.webp">
+        </div>
+    </section>
+
+    <!-- Core Features Grid -->
+    <h2 class="section-title" id="features">Tính năng đột phá</h2>
+    <section class="features">
+        <div class="feature-card">
+            <i class="fa-solid fa-layer-group"></i>
+            <h3>Xuyên Chuột (Click-through)</h3>
+            <p>Vẽ trên một lớp kính vô hình phủ toàn màn hình. Dễ dàng chuyển sang chế độ chuột để cuộn web hoặc click ứng dụng mà không mất nét vẽ.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-wand-magic-sparkles"></i>
+            <h3>Nắn Hình Học & Bút Laser</h3>
+            <p>Vẽ vòng tròn bằng tay và AI sẽ nắn lại hoàn hảo. Bút laser phát sáng và tự động mờ dần để thu hút sự chú ý không để lại rác màn hình.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-desktop"></i>
+            <h3>Đa Màn Hình (Multi-monitor)</h3>
+            <p>Nét bút của bạn không bị giới hạn. Kéo nét vẽ liền mạch từ màn hình máy tính xách tay sang màn hình chiếu lớn mượt mà tuyệt đối.</p>
+        </div>
+        <div class="feature-card">
+            <i class="fa-solid fa-video"></i>
+            <h3>Ghi Hình Tích Hợp (60fps)</h3>
+            <p>Quay lại toàn bộ bài giảng hoặc khoanh vùng ghi hình dưới dạng MP4/GIF chất lượng cao bằng công nghệ GPU siêu nhẹ.</p>
+        </div>
+    </section>
+
+    <!-- Specialized Subjects Section -->
+    <section class="subjects" id="subjects">
+        <h2 class="section-title">Thiết kế riêng cho từng môn học</h2>
+        
+        <div class="subject-row">
+            <div class="subject-text">
+                <h2>Tin Học & Lập Trình</h2>
+                <p>Giúp học sinh bám sát từng thao tác khó nhất nhờ bộ công cụ trực quan hóa chuột và phím bấm.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Hiển thị tổ hợp phím (Keystroke Visualizer).</li>
+                    <li><i class="fa-solid fa-check"></i> Kính lúp động phóng to vùng code.</li>
+                    <li><i class="fa-solid fa-check"></i> Bút làm mờ (Blur Pen) che thông tin nhạy cảm.</li>
+                </ul>
+            </div>
+            <div class="subject-img">Ảnh Demo Môn Tin Học</div>
+        </div>
+
+        <div class="subject-row">
+            <div class="subject-text">
+                <h2>Toán & Khoa Học</h2>
+                <p>Biến màn hình thành một chiếc bảng xanh thực thụ với các dụng cụ hình học vật lý tương tác.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Thước thẳng, Compa, Thước đo độ tự động hút nét.</li>
+                    <li><i class="fa-solid fa-check"></i> Vẽ đồ thị tức thì với hàm số (Smart Plotter).</li>
+                    <li><i class="fa-solid fa-check"></i> Bảng giấy ô ly, giấy kẻ ngang thông minh.</li>
+                </ul>
+            </div>
+            <div class="subject-img">Ảnh Demo Môn Toán</div>
+        </div>
+
+        <div class="subject-row">
+            <div class="subject-text">
+                <h2>Ngoại Ngữ</h2>
+                <p>Tương tác trực tiếp trên bài báo hoặc file PDF để tối ưu hóa tiết học Đọc - Hiểu.</p>
+                <ul>
+                    <li><i class="fa-solid fa-check"></i> Bút che từ (Cloze Tape) tạo trò chơi điền chỗ trống.</li>
+                    <li><i class="fa-solid fa-check"></i> Màng lọc đọc hiểu (Reading Ruler).</li>
+                    <li><i class="fa-solid fa-check"></i> Nhận diện OCR quét chữ xuất ra phát âm trực tiếp.</li>
+                </ul>
+            </div>
+            <div class="subject-img">Ảnh Demo Ngoại Ngữ</div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h2>Bắt đầu hành trình giảng dạy chuyên nghiệp</h2>
+        <p style="margin: 20px 0;">Tham gia cùng hàng ngàn giáo viên đang sử dụng OmniPen mỗi ngày.</p>
+        <!-- Cập nhật tên phiên bản -->
+        <a href="#" class="btn-download">Tải OmniPen (v1.5) Ngay</a>
+        <p style="margin-top: 50px; font-size: 0.9rem;">&copy; 2026 OmniPen Software. Phát triển bằng C# WPF cho Windows.</p>
+    </footer>
+
+</body>
+</html>

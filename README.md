@@ -8,6 +8,8 @@
 > 💡 **OmniPen** là phần mềm viết bảng điện tử miễn phí dành cho giáo viên: viết, vẽ, chú thích trực tiếp lên màn hình; biến máy tính thành bảng đen – bảng trắng nhiều trang; ghi chú lên PDF; chèn hình, ảnh, công thức toán và xuất bài giảng ra PDF/PNG/SVG.
 
 ---
+<img width="1024" height="559" alt="anh" src="https://github.com/user-attachments/assets/612fe416-48f5-4bd7-b937-93fc155760de" />
+
 
 ## 👨‍🏫 1. THÔNG TIN TÁC GIẢ & CÀI ĐẶT
 
